@@ -125,6 +125,8 @@ require("lazy").setup({
 		"hrsh7th/nvim-cmp",
 		dependencies = {
 			"hrsh7th/cmp-nvim-lsp",
+			"hrsh7th/cmp-buffer",
+			"hrsh7th/cmp-path",
 			"L3MON4D3/LuaSnip",
 			"saadparwaiz1/cmp_luasnip",
 		},
@@ -216,12 +218,6 @@ require("lazy").setup({
 		lazy = false,
 	},
 	{
-		"numToStr/Comment.nvim",
-		opts = {},
-		lazy = true,
-		event = { "BufReadPost", "BufNewFile" },
-	},
-	{
 		"nvim-telescope/telescope.nvim",
 		version = "*",
 		dependencies = {
@@ -291,12 +287,27 @@ require("lazy").setup({
 	},
 	{
 		"echasnovski/mini.surround",
-		version = false,
 		config = function()
 			require("mini.surround").setup()
 		end,
 		lazy = true,
 		event = { "BufReadPost", "BufNewFile" },
+	},
+	{
+		"echasnovski/mini.comment",
+		config = function()
+			require("mini.comment").setup()
+		end,
+		lazy = true,
+		event = "VeryLazy",
+	},
+	{
+		"echasnovski/mini.pairs",
+		config = function()
+			require("mini.pairs").setup()
+		end,
+		lazy = true,
+		event = "VeryLazy",
 	},
 })
 
