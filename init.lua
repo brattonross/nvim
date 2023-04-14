@@ -23,15 +23,28 @@ require("lazy").setup({
 		config = function()
 			require("catppuccin").setup({
 				flavour = "mocha",
+				background = {
+					dark = "mocha",
+				},
 				no_italic = true,
+				integrations = {
+					cmp = true,
+					gitsigns = true,
+					harpoon = true,
+					mason = true,
+					native_lsp = {
+						enabled = true,
+					},
+					telescope = true,
+					treesitter = true,
+					treesitter_context = true,
+					lsp_trouble = true,
+					which_key = true,
+				},
 			})
 
 			vim.cmd.colorscheme("catppuccin")
 		end,
-	},
-	{
-		"christoomey/vim-tmux-navigator",
-		lazy = false,
 	},
 	{
 		"folke/zen-mode.nvim",
@@ -110,7 +123,10 @@ require("lazy").setup({
 	{
 		"neovim/nvim-lspconfig",
 		dependencies = {
-			"williamboman/mason.nvim",
+			{
+				"williamboman/mason.nvim",
+				build = ":MasonUpdate",
+			},
 			"williamboman/mason-lspconfig.nvim",
 			{
 				"j-hui/fidget.nvim",
