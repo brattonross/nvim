@@ -48,20 +48,25 @@ require("lazy").setup({
 	},
 	{
 		"folke/zen-mode.nvim",
-		opts = {
-			window = {
-				backdrop = 1,
-				options = {
-					signcolumn = "yes",
-					number = true,
-					relativenumber = true,
-					list = true,
+		config = function()
+			require("zen-mode").setup({
+				window = {
+					backdrop = 1,
+					options = {
+						signcolumn = "yes",
+						number = true,
+						relativenumber = true,
+						list = true,
+					},
 				},
-			},
-			plugins = {
-				tmux = { enabled = true },
-			},
-		},
+				plugins = {
+					tmux = { enabled = true },
+				},
+			})
+			vim.keymap.set("n", "<leader>z", function()
+				require("zen-mode").toggle()
+			end, { desc = "[z] Toggle Zen mode" })
+		end,
 		lazy = true,
 		event = { "BufReadPost", "BufNewFile" },
 	},
@@ -425,10 +430,6 @@ vim.api.nvim_create_autocmd("TextYankPost", {
 	group = highlight_group,
 	pattern = "*",
 })
-
-vim.keymap.set("n", "<leader>z", function()
-	require("zen-mode").toggle()
-end, { desc = "[z] Toggle Zen mode" })
 
 -- Configure Telescope
 -- See `:help telescope` and `:help telescope.setup()`
