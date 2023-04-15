@@ -154,13 +154,17 @@ require("lazy").setup({
 			{
 				"williamboman/mason.nvim",
 				build = ":MasonUpdate",
+				config = true,
 			},
 			"williamboman/mason-lspconfig.nvim",
 			{
 				"j-hui/fidget.nvim",
 				opts = {},
 			},
-			"folke/neodev.nvim",
+			{
+				"folke/neodev.nvim",
+				config = true,
+			},
 		},
 		lazy = true,
 		event = { "BufReadPost", "BufNewFile" },
@@ -174,6 +178,51 @@ require("lazy").setup({
 			"L3MON4D3/LuaSnip",
 			"saadparwaiz1/cmp_luasnip",
 		},
+		config = function()
+			local cmp = require("cmp")
+			local luasnip = require("luasnip")
+
+			luasnip.config.setup({})
+
+			cmp.setup({
+				snippet = {
+					expand = function(args)
+						luasnip.lsp_expand(args.body)
+					end,
+				},
+				mapping = cmp.mapping.preset.insert({
+					["<C-d>"] = cmp.mapping.scroll_docs(-4),
+					["<C-f>"] = cmp.mapping.scroll_docs(4),
+					["<C-Space>"] = cmp.mapping.complete({}),
+					["<CR>"] = cmp.mapping.confirm({
+						behavior = cmp.ConfirmBehavior.Replace,
+						select = true,
+					}),
+					["<Tab>"] = cmp.mapping(function(fallback)
+						if cmp.visible() then
+							cmp.select_next_item()
+						elseif luasnip.expand_or_jumpable() then
+							luasnip.expand_or_jump()
+						else
+							fallback()
+						end
+					end, { "i", "s" }),
+					["<S-Tab>"] = cmp.mapping(function(fallback)
+						if cmp.visible() then
+							cmp.select_prev_item()
+						elseif luasnip.jumpable(-1) then
+							luasnip.jump(-1)
+						else
+							fallback()
+						end
+					end, { "i", "s" }),
+				}),
+				sources = {
+					{ name = "nvim_lsp" },
+					{ name = "luasnip" },
+				},
+			})
+		end,
 		lazy = true,
 		event = { "BufReadPost", "BufNewFile" },
 	},
@@ -354,6 +403,27 @@ require("lazy").setup({
 			pcall(require("nvim-treesitter.install").update({
 				with_sync = true,
 			}))
+
+			require("nvim-treesitter.configs").setup({
+				ensure_installed = { "lua", "tsx", "typescript", "vimdoc", "vim", "css", "astro" },
+				highlight = { enable = true },
+				indent = { enable = true, disable = { "python" } },
+				incremental_selection = {
+					enable = true,
+					keymaps = {
+						init_selection = "<c-space>",
+						node_incremental = "<c-space>",
+						scope_incremental = "<c-s>",
+						node_decremental = "<M-space>",
+					},
+				},
+				textobjects = {
+					select = {
+						enable = true,
+						lookahead = true,
+					},
+				},
+			})
 		end,
 		lazy = true,
 		event = { "BufReadPost", "BufNewFile" },
@@ -498,28 +568,6 @@ vim.api.nvim_create_autocmd("TextYankPost", {
 	pattern = "*",
 })
 
--- Configure Treesitter
-require("nvim-treesitter.configs").setup({
-	ensure_installed = { "lua", "tsx", "typescript", "vimdoc", "vim", "css", "astro" },
-	highlight = { enable = true },
-	indent = { enable = true, disable = { "python" } },
-	incremental_selection = {
-		enable = true,
-		keymaps = {
-			init_selection = "<c-space>",
-			node_incremental = "<c-space>",
-			scope_incremental = "<c-s>",
-			node_decremental = "<M-space>",
-		},
-	},
-	textobjects = {
-		select = {
-			enable = true,
-			lookahead = true,
-		},
-	},
-})
-
 -- Diagnostic keymaps
 vim.keymap.set("n", "[d", vim.diagnostic.goto_prev, { desc = "Go to previous diagnostic message" })
 vim.keymap.set("n", "]d", vim.diagnostic.goto_next, { desc = "Go to next diagnostic message" })
@@ -565,13 +613,8 @@ local on_attach = function(_, bufnr)
 	end, { desc = "Format current buffer with LSP" })
 end
 
--- Setup neovim lua configuration
-require("neodev").setup()
-
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities = require("cmp_nvim_lsp").default_capabilities(capabilities)
-
-require("mason").setup()
 
 local mason_lspconfig = require("mason-lspconfig")
 local servers = {
@@ -595,51 +638,6 @@ mason_lspconfig.setup_handlers({
 			settings = servers[server_name],
 		})
 	end,
-})
-
--- nvim-cmp setup
-local cmp = require("cmp")
-local luasnip = require("luasnip")
-
-luasnip.config.setup({})
-
-cmp.setup({
-	snippet = {
-		expand = function(args)
-			luasnip.lsp_expand(args.body)
-		end,
-	},
-	mapping = cmp.mapping.preset.insert({
-		["<C-d>"] = cmp.mapping.scroll_docs(-4),
-		["<C-f>"] = cmp.mapping.scroll_docs(4),
-		["<C-Space>"] = cmp.mapping.complete({}),
-		["<CR>"] = cmp.mapping.confirm({
-			behavior = cmp.ConfirmBehavior.Replace,
-			select = true,
-		}),
-		["<Tab>"] = cmp.mapping(function(fallback)
-			if cmp.visible() then
-				cmp.select_next_item()
-			elseif luasnip.expand_or_jumpable() then
-				luasnip.expand_or_jump()
-			else
-				fallback()
-			end
-		end, { "i", "s" }),
-		["<S-Tab>"] = cmp.mapping(function(fallback)
-			if cmp.visible() then
-				cmp.select_prev_item()
-			elseif luasnip.jumpable(-1) then
-				luasnip.jump(-1)
-			else
-				fallback()
-			end
-		end, { "i", "s" }),
-	}),
-	sources = {
-		{ name = "nvim_lsp" },
-		{ name = "luasnip" },
-	},
 })
 
 -- The line beneath this is called `modeline`. See `:help modeline`
