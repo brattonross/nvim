@@ -67,6 +67,29 @@ require("lazy").setup({
 	},
 	{
 		"ThePrimeagen/harpoon",
+		config = function()
+			local mark = require("harpoon.mark")
+			local ui = require("harpoon.ui")
+
+			vim.keymap.set("n", "<leader>a", mark.add_file, {
+				desc = "[a] Add file to Harpoon",
+			})
+			vim.keymap.set("n", "<C-e>", ui.toggle_quick_menu, {
+				desc = "[C-e] Toggle Harpoon quick menu",
+			})
+			vim.keymap.set("n", "<leader>1", function()
+				ui.nav_file(1)
+			end, { desc = "[1] Navigate to Harpoon file 1" })
+			vim.keymap.set("n", "<leader>2", function()
+				ui.nav_file(2)
+			end, { desc = "[2] Navigate to Harpoon file 2" })
+			vim.keymap.set("n", "<leader>3", function()
+				ui.nav_file(3)
+			end, { desc = "[3] Navigate to Harpoon file 3" })
+			vim.keymap.set("n", "<leader>4", function()
+				ui.nav_file(4)
+			end, { desc = "[4] Navigate to Harpoon file 4" })
+		end,
 		lazy = true,
 		event = "VeryLazy",
 	},
@@ -403,31 +426,12 @@ vim.api.nvim_create_autocmd("TextYankPost", {
 	pattern = "*",
 })
 
-local mark = require("harpoon.mark")
-local ui = require("harpoon.ui")
-
-vim.keymap.set("n", "<leader>a", mark.add_file, { desc = "[a] Add file to Harpoon" })
-vim.keymap.set("n", "<C-e>", ui.toggle_quick_menu, { desc = "[C-e] Toggle Harpoon quick menu" })
-vim.keymap.set("n", "<leader>1", function()
-	ui.nav_file(1)
-end, { desc = "[1] Navigate to Harpoon file 1" })
-vim.keymap.set("n", "<leader>2", function()
-	ui.nav_file(2)
-end, { desc = "[2] Navigate to Harpoon file 2" })
-vim.keymap.set("n", "<leader>3", function()
-	ui.nav_file(3)
-end, { desc = "[3] Navigate to Harpoon file 3" })
-vim.keymap.set("n", "<leader>4", function()
-	ui.nav_file(4)
-end, { desc = "[4] Navigate to Harpoon file 4" })
-
 vim.keymap.set("n", "<leader>z", function()
 	require("zen-mode").toggle()
 end, { desc = "[z] Toggle Zen mode" })
 
 -- Configure Telescope
 -- See `:help telescope` and `:help telescope.setup()`
-local telescope = require("telescope")
 local telescope_config = require("telescope.config")
 
 local vimgrep_arguments = { unpack(telescope_config.values.vimgrep_arguments) }
@@ -474,13 +478,9 @@ vim.keymap.set("n", "<leader>sw", require("telescope.builtin").grep_string, { de
 vim.keymap.set("n", "<leader>sg", require("telescope.builtin").live_grep, { desc = "[S]earch by [G]rep" })
 vim.keymap.set("n", "<leader>sd", require("telescope.builtin").diagnostics, { desc = "[S]earch [D]iagnostics" })
 
--- [[ Configure Treesitter ]]
--- See `:help nvim-treesitter`
+-- Configure Treesitter
 require("nvim-treesitter.configs").setup({
-	-- Add languages to be installed here that you want installed for treesitter
 	ensure_installed = { "lua", "tsx", "typescript", "vimdoc", "vim", "css", "astro" },
-	-- Autoinstall languages that are not installed. Defaults to false (but you can change for yourself!)
-	auto_install = false,
 	highlight = { enable = true },
 	indent = { enable = true, disable = { "python" } },
 	incremental_selection = {
@@ -495,45 +495,7 @@ require("nvim-treesitter.configs").setup({
 	textobjects = {
 		select = {
 			enable = true,
-			lookahead = true, -- Automatically jump forward to textobj, similar to targets.vim
-			keymaps = {
-				-- You can use the capture groups defined in textobjects.scm
-				["aa"] = "@parameter.outer",
-				["ia"] = "@parameter.inner",
-				["af"] = "@function.outer",
-				["if"] = "@function.inner",
-				["ac"] = "@class.outer",
-				["ic"] = "@class.inner",
-			},
-		},
-		move = {
-			enable = true,
-			set_jumps = true, -- whether to set jumps in the jumplist
-			goto_next_start = {
-				["]m"] = "@function.outer",
-				["]]"] = "@class.outer",
-			},
-			goto_next_end = {
-				["]M"] = "@function.outer",
-				["]["] = "@class.outer",
-			},
-			goto_previous_start = {
-				["[m"] = "@function.outer",
-				["[["] = "@class.outer",
-			},
-			goto_previous_end = {
-				["[M"] = "@function.outer",
-				["[]"] = "@class.outer",
-			},
-		},
-		swap = {
-			enable = true,
-			swap_next = {
-				["<leader>a"] = "@parameter.inner",
-			},
-			swap_previous = {
-				["<leader>A"] = "@parameter.inner",
-			},
+			lookahead = true,
 		},
 	},
 })
@@ -583,15 +545,6 @@ local on_attach = function(_, bufnr)
 	end, { desc = "Format current buffer with LSP" })
 end
 
-local servers = {
-	lua_ls = {
-		Lua = {
-			workspace = { checkThirdParty = false },
-			telemetry = { enable = false },
-		},
-	},
-}
-
 -- Setup neovim lua configuration
 require("neodev").setup()
 
@@ -600,8 +553,15 @@ capabilities = require("cmp_nvim_lsp").default_capabilities(capabilities)
 
 require("mason").setup()
 
--- Ensure the servers above are installed
 local mason_lspconfig = require("mason-lspconfig")
+local servers = {
+	lua_ls = {
+		Lua = {
+			workspace = { checkThirdParty = false },
+			telemetry = { enable = false },
+		},
+	},
+}
 
 mason_lspconfig.setup({
 	ensure_installed = vim.tbl_keys(servers),
