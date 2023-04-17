@@ -583,6 +583,10 @@ vim.keymap.set("n", "<C-u>", "<C-u>zz")
 vim.keymap.set("n", "n", "nzzzv")
 vim.keymap.set("n", "N", "Nzzzv")
 
+-- Using Ex mode is a bad time
+vim.keymap.set("n", "Q", "<nop>")
+vim.keymap.set("n", "q:", "<nop>")
+
 -- Keep yanked buffer content when pasting over a highlight
 vim.keymap.set("x", "<leader>p", '"_dP')
 
