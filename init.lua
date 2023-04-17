@@ -66,16 +66,6 @@ require("lazy").setup({
 		lazy = true,
 	},
 	{
-		"mbbill/undotree",
-		config = function()
-			vim.keymap.set("n", "<leader>u", function()
-				vim.cmd("UndotreeToggle")
-			end, { desc = "[u] Toggle undotree" })
-		end,
-		event = { "BufReadPost", "BufNewFile" },
-		lazy = true,
-	},
-	{
 		"folke/zen-mode.nvim",
 		config = function()
 			require("zen-mode").setup({
@@ -342,6 +332,17 @@ require("lazy").setup({
 	{
 		"nvim-telescope/telescope.nvim",
 		version = "*",
+		dependencies = {
+			"nvim-lua/plenary.nvim",
+			{
+				"nvim-telescope/telescope-fzf-native.nvim",
+				build = "make",
+				cond = function()
+					return vim.fn.executable("make") == 1
+				end,
+			},
+			"debugloop/telescope-undo.nvim",
+		},
 		config = function()
 			local telescope_config = require("telescope.config")
 
@@ -371,6 +372,11 @@ require("lazy").setup({
 
 			-- Enable telescope fzf native, if installed
 			pcall(require("telescope").load_extension, "fzf")
+			require("telescope").load_extension("undo")
+
+			vim.keymap.set("n", "<leader>u", function()
+				vim.cmd.Telescope("undo")
+			end, { desc = "[u] Undo history" })
 
 			-- See `:help telescope.builtin`
 			vim.keymap.set(
@@ -409,16 +415,6 @@ require("lazy").setup({
 				{ desc = "[S]earch [D]iagnostics" }
 			)
 		end,
-		dependencies = {
-			"nvim-lua/plenary.nvim",
-			{
-				"nvim-telescope/telescope-fzf-native.nvim",
-				build = "make",
-				cond = function()
-					return vim.fn.executable("make") == 1
-				end,
-			},
-		},
 		lazy = false,
 	},
 	{
