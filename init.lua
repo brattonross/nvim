@@ -267,6 +267,9 @@ require("lazy").setup({
 	},
 	{
 		"folke/trouble.nvim",
+		options = {
+			icons = false,
+		},
 		cmd = { "TroubleToggle", "Trouble" },
 		keys = {
 			{ "<leader>xx", "<cmd>TroubleToggle document_diagnostics<cr>", desc = "Document Diagnostics (Trouble)" },
@@ -467,7 +470,6 @@ require("lazy").setup({
 
 			null_ls.setup({
 				sources = {
-					-- null_ls.builtins.formatting.eslint_d,
 					null_ls.builtins.formatting.prettierd,
 					null_ls.builtins.formatting.stylua,
 				},
@@ -635,11 +637,6 @@ local on_attach = function(_, bufnr)
 	nmap("<leader>wl", function()
 		print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
 	end, "[W]orkspace [L]ist Folders")
-
-	-- Create a command `:Format` local to the LSP buffer
-	vim.api.nvim_buf_create_user_command(bufnr, "Format", function(_)
-		vim.lsp.buf.format()
-	end, { desc = "Format current buffer with LSP" })
 end
 
 local capabilities = vim.lsp.protocol.make_client_capabilities()
