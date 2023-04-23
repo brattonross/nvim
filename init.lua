@@ -112,7 +112,7 @@ require("lazy").setup({
 				ui.nav_file(4)
 			end, { desc = "[4] Navigate to Harpoon file 4" })
 		end,
-		event = "VeryLazy",
+		event = { "BufReadPost", "BufNewFile" },
 	},
 	{
 		"nvim-lualine/lualine.nvim",
@@ -261,7 +261,7 @@ require("lazy").setup({
 				changedelete = { text = "~" },
 			},
 		},
-		event = "VeryLazy",
+		event = { "BufReadPost", "BufNewFile" },
 	},
 	{
 		"folke/trouble.nvim",
@@ -506,14 +506,14 @@ require("lazy").setup({
 		config = function()
 			require("mini.comment").setup()
 		end,
-		event = "VeryLazy",
+		event = { "BufReadPost", "BufNewFile" },
 	},
 	{
 		"echasnovski/mini.pairs",
 		config = function()
 			require("mini.pairs").setup()
 		end,
-		event = "VeryLazy",
+		event = { "BufReadPost", "BufNewFile" },
 	},
 }, {
 	lazy = true,
