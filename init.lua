@@ -63,7 +63,6 @@ require("lazy").setup({
 			end, { desc = "Show [T]erminal with [G]it status" })
 		end,
 		event = "VeryLazy",
-		lazy = true,
 	},
 	{
 		"folke/zen-mode.nvim",
@@ -86,7 +85,6 @@ require("lazy").setup({
 				require("zen-mode").toggle()
 			end, { desc = "[z] Toggle Zen mode" })
 		end,
-		lazy = true,
 		event = { "BufReadPost", "BufNewFile" },
 	},
 	{
@@ -114,7 +112,6 @@ require("lazy").setup({
 				ui.nav_file(4)
 			end, { desc = "[4] Navigate to Harpoon file 4" })
 		end,
-		lazy = true,
 		event = "VeryLazy",
 	},
 	{
@@ -158,17 +155,14 @@ require("lazy").setup({
 				},
 			})
 		end,
-		lazy = true,
 		event = "InsertEnter",
 	},
 	{
 		"tpope/vim-fugitive",
-		lazy = true,
 		event = "VeryLazy",
 	},
 	{
 		"tpope/vim-rhubarb",
-		lazy = true,
 		event = "VeryLazy",
 	},
 	{
@@ -193,7 +187,6 @@ require("lazy").setup({
 				config = true,
 			},
 		},
-		lazy = true,
 		event = { "BufReadPost", "BufNewFile" },
 	},
 	{
@@ -250,13 +243,11 @@ require("lazy").setup({
 				},
 			})
 		end,
-		lazy = true,
 		event = { "BufReadPost", "BufNewFile" },
 	},
 	{
 		"folke/which-key.nvim",
 		opts = {},
-		lazy = true,
 		event = "VeryLazy",
 	},
 	{
@@ -270,7 +261,6 @@ require("lazy").setup({
 				changedelete = { text = "~" },
 			},
 		},
-		lazy = true,
 		event = "VeryLazy",
 	},
 	{
@@ -307,7 +297,6 @@ require("lazy").setup({
 				desc = "Next trouble/quickfix item",
 			},
 		},
-		lazy = true,
 		event = { "BufReadPost", "BufNewFile" },
 	},
 	{
@@ -333,7 +322,6 @@ require("lazy").setup({
 			{ "<leader>xT", "<cmd>TodoTrouble keywords=TODO,FIX,FIXME<cr>", desc = "Todo/Fix/Fixme (Trouble)" },
 			{ "<leader>st", "<cmd>TodoTelescope<cr>", desc = "Todo" },
 		},
-		lazy = true,
 		event = { "BufReadPost", "BufNewFile" },
 	},
 	{
@@ -468,13 +456,11 @@ require("lazy").setup({
 				},
 			})
 		end,
-		lazy = true,
 		event = { "BufReadPost", "BufNewFile" },
 	},
 	{
 		"windwp/nvim-ts-autotag",
 		opts = {},
-		lazy = true,
 		event = { "BufReadPost", "BufNewFile" },
 	},
 	{
@@ -505,7 +491,6 @@ require("lazy").setup({
 				end,
 			})
 		end,
-		lazy = true,
 		event = { "BufReadPost", "BufNewFile" },
 	},
 	{
@@ -513,7 +498,6 @@ require("lazy").setup({
 		config = function()
 			require("mini.surround").setup()
 		end,
-		lazy = true,
 		event = { "BufReadPost", "BufNewFile" },
 	},
 	{
@@ -521,7 +505,6 @@ require("lazy").setup({
 		config = function()
 			require("mini.comment").setup()
 		end,
-		lazy = true,
 		event = "VeryLazy",
 	},
 	{
@@ -529,9 +512,10 @@ require("lazy").setup({
 		config = function()
 			require("mini.pairs").setup()
 		end,
-		lazy = true,
 		event = "VeryLazy",
 	},
+}, {
+	lazy = true,
 })
 
 -- Sets
