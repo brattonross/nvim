@@ -167,7 +167,7 @@ require("lazy").setup({
 	},
 	{
 		"tpope/vim-sleuth",
-		lazy = false,
+		event = { "BufReadPost", "BufNewFile" },
 	},
 	{
 		"neovim/nvim-lspconfig",
@@ -243,7 +243,7 @@ require("lazy").setup({
 				},
 			})
 		end,
-		event = { "BufReadPost", "BufNewFile" },
+		event = "InsertEnter",
 	},
 	{
 		"folke/which-key.nvim",
@@ -326,7 +326,8 @@ require("lazy").setup({
 	},
 	{
 		"lukas-reineke/indent-blankline.nvim",
-		lazy = false,
+		opts = {},
+		event = { "BufReadPost", "BufNewFile" },
 	},
 	{
 		"nvim-telescope/telescope.nvim",
@@ -414,7 +415,7 @@ require("lazy").setup({
 				{ desc = "[S]earch [D]iagnostics" }
 			)
 		end,
-		lazy = false,
+		event = "VeryLazy",
 	},
 	{
 		"nvim-treesitter/nvim-treesitter",
@@ -516,6 +517,23 @@ require("lazy").setup({
 	},
 }, {
 	lazy = true,
+	install = {
+		colorscheme = { "catppuccin" },
+	},
+	checker = {
+		enabled = true,
+	},
+	performance = {
+		rtp = {
+			disabled_plugins = {
+				"gzip",
+				"tarPlugin",
+				"tohtml",
+				"tutor",
+				"zipPlugin",
+			},
+		},
+	},
 })
 
 -- Sets
