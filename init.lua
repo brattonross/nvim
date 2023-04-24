@@ -326,7 +326,10 @@ require("lazy").setup({
 	},
 	{
 		"lukas-reineke/indent-blankline.nvim",
-		opts = {},
+		opts = {
+			show_end_of_line = true,
+			space_char_blankline = " ",
+		},
 		event = { "BufReadPost", "BufNewFile" },
 	},
 	{
@@ -577,8 +580,12 @@ vim.g.splitbelow = true
 
 vim.g.netrw_banner = 0
 
+vim.opt.listchars:append({
+	eol = "↵",
+	space = "⋅",
+	tab = "» ",
+})
 vim.opt.list = true
-vim.opt.listchars:append("space:⋅")
 
 -- Remaps
 vim.keymap.set("n", "<leader>pv", vim.cmd.Ex)
