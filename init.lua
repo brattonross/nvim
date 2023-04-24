@@ -1,6 +1,7 @@
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
 
+-- Ensure lazy is installed
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not vim.loop.fs_stat(lazypath) then
 	vim.fn.system({
@@ -14,38 +15,9 @@ if not vim.loop.fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
+-- Go!
 require("lazy").setup({
-	{
-		"catppuccin/nvim",
-		name = "catppuccin",
-		lazy = false,
-		priority = 1000,
-		config = function()
-			require("catppuccin").setup({
-				flavour = "mocha",
-				background = {
-					dark = "mocha",
-				},
-				no_italic = true,
-				integrations = {
-					cmp = true,
-					gitsigns = true,
-					harpoon = true,
-					mason = true,
-					native_lsp = {
-						enabled = true,
-					},
-					telescope = true,
-					treesitter = true,
-					treesitter_context = true,
-					lsp_trouble = true,
-					which_key = true,
-				},
-			})
-
-			vim.cmd.colorscheme("catppuccin")
-		end,
-	},
+	{ import = "plugins" },
 	{
 		"akinsho/toggleterm.nvim",
 		version = "*",
@@ -330,7 +302,8 @@ require("lazy").setup({
 			show_end_of_line = true,
 			space_char_blankline = " ",
 		},
-		event = { "BufReadPost", "BufNewFile" },
+		-- event = { "BufReadPost", "BufNewFile" },
+		lazy = false,
 	},
 	{
 		"nvim-telescope/telescope.nvim",
@@ -656,11 +629,6 @@ local on_attach = function(_, bufnr)
 
 	-- Lesser used LSP functionality
 	nmap("gD", vim.lsp.buf.declaration, "[G]oto [D]eclaration")
-	nmap("<leader>wa", vim.lsp.buf.add_workspace_folder, "[W]orkspace [A]dd Folder")
-	nmap("<leader>wr", vim.lsp.buf.remove_workspace_folder, "[W]orkspace [R]emove Folder")
-	nmap("<leader>wl", function()
-		print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
-	end, "[W]orkspace [L]ist Folders")
 end
 
 local capabilities = vim.lsp.protocol.make_client_capabilities()
