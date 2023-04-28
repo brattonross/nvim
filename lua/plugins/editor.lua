@@ -105,6 +105,8 @@ return {
 
 			null_ls.setup({
 				sources = {
+					null_ls.builtins.formatting.gofumpt,
+					null_ls.builtins.formatting.goimports,
 					null_ls.builtins.formatting.prettierd,
 					null_ls.builtins.formatting.stylua,
 				},
@@ -118,7 +120,13 @@ return {
 							group = augroup,
 							buffer = bufnr,
 							callback = function()
-								vim.lsp.buf.format({ bufnr = bufnr })
+								vim.lsp.buf.format({
+									bufnr = bufnr,
+									filter = function(c)
+										-- Prevent tsserver or eslint from formatting
+										return c.name ~= "tsserver" or c.name ~= "eslint"
+									end,
+								})
 							end,
 						})
 					end
