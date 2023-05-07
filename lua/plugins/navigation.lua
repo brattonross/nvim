@@ -76,11 +76,6 @@ return {
 
 			-- Enable telescope fzf native, if installed
 			pcall(require("telescope").load_extension, "fzf")
-			require("telescope").load_extension("undo")
-
-			vim.keymap.set("n", "<leader>u", function()
-				vim.cmd.Telescope("undo")
-			end, { desc = "[u] Undo history" })
 
 			-- See `:help telescope.builtin`
 			vim.keymap.set(
