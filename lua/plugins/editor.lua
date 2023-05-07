@@ -157,6 +157,19 @@ return {
 		event = { "BufReadPost", "BufNewFile" },
 	},
 	{
+		"echasnovski/mini.misc",
+		version = false,
+		config = function()
+			local MiniMisc = require("mini.misc")
+			MiniMisc.setup()
+			MiniMisc.setup_auto_root({
+				".git",
+				"package.json",
+			})
+		end,
+		event = { "BufReadPost", "BufNewFile" },
+	},
+	{
 		"hrsh7th/nvim-cmp",
 		dependencies = {
 			"hrsh7th/cmp-nvim-lsp",
