@@ -97,7 +97,6 @@ return {
 					previewer = false,
 				}))
 			end, { desc = "[/] Fuzzily search in current buffer" })
-
 			vim.keymap.set("n", "<leader>sf", require("telescope.builtin").find_files, { desc = "[S]earch [F]iles" })
 			vim.keymap.set("n", "<leader>sh", require("telescope.builtin").help_tags, { desc = "[S]earch [H]elp" })
 			vim.keymap.set(
@@ -113,6 +112,27 @@ return {
 				require("telescope.builtin").diagnostics,
 				{ desc = "[S]earch [D]iagnostics" }
 			)
+			vim.keymap.set("n", "<leader>sc", require("telescope.builtin").commands, { desc = "[S]earch [C]ommands" })
+			vim.keymap.set("n", "<leader>fk", require("telescope.builtin").keymaps, { desc = "[F]ind [K]eymaps" })
+
+			-- Undo
+			require("telescope").load_extension("undo")
+
+			vim.keymap.set("n", "<leader>u", function()
+				vim.cmd.Telescope("undo")
+			end, { desc = "[u] Undo history" })
+
+			-- Git
+			vim.keymap.set("n", "<leader>gs", require("telescope.builtin").git_status, { desc = "[G]it [S]tatus" })
+			vim.keymap.set("n", "<leader>gc", require("telescope.builtin").git_commits, { desc = "[G]it [C]ommits" })
+			vim.keymap.set("n", "<leader>gb", require("telescope.builtin").git_branches, { desc = "[G]it [B]ranches" })
+			vim.keymap.set(
+				"n",
+				"<leader>gf",
+				require("telescope.builtin").git_bcommits,
+				{ desc = "[G]it [F]ile [H]istory" }
+			)
+			vim.keymap.set("n", "<leader>gS", require("telescope.builtin").git_stash, { desc = "[G]it [S]tash" })
 		end,
 		event = "VeryLazy",
 	},
