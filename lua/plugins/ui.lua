@@ -23,6 +23,7 @@ return {
 	},
 	{
 		"lukas-reineke/indent-blankline.nvim",
+		enabled = false,
 		opts = {
 			show_end_of_line = true,
 			space_char_blankline = " ",
@@ -32,6 +33,7 @@ return {
 	},
 	{
 		"folke/trouble.nvim",
+		enabled = false,
 		options = {
 			icons = false,
 		},
