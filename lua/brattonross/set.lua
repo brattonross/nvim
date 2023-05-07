@@ -1,4 +1,5 @@
 vim.opt.guicursor = ""
+
 vim.opt.number = true
 vim.opt.relativenumber = true
 
@@ -38,6 +39,9 @@ vim.g.splitright = true
 vim.g.splitbelow = true
 vim.g.netrw_alto = 1
 vim.g.netrw_altv = 1
+
+vim.opt.laststatus = 3
+vim.cmd("highlight WinSeparator guibg=None")
 
 vim.g.netrw_banner = 0
 
