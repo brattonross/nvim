@@ -164,7 +164,6 @@ return {
 			MiniMisc.setup()
 			MiniMisc.setup_auto_root({
 				".git",
-				"package.json",
 			})
 		end,
 		event = { "BufReadPost", "BufNewFile" },
