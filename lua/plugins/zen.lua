@@ -13,9 +13,7 @@ return {
 					},
 				},
 			})
-			vim.keymap.set("n", "<leader>z", function()
-				require("zen-mode").toggle()
-			end, { desc = "[z] Toggle Zen mode" })
+			vim.keymap.set("n", "<leader>z", require("zen-mode").toggle, { desc = "[z] Toggle Zen mode" })
 		end,
 		event = { "BufReadPost", "BufNewFile" },
 	},
