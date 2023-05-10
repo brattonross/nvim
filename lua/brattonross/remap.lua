@@ -27,3 +27,17 @@ vim.keymap.set("n", "[d", vim.diagnostic.goto_prev, { desc = "Go to previous dia
 vim.keymap.set("n", "]d", vim.diagnostic.goto_next, { desc = "Go to next diagnostic message" })
 vim.keymap.set("n", "<leader>e", vim.diagnostic.open_float, { desc = "Open floating diagnostic message" })
 vim.keymap.set("n", "<leader>q", vim.diagnostic.setloclist, { desc = "Open diagnostics list" })
+
+-- Move window with <C-hjkl>
+vim.keymap.set("n", "<C-h>", "<C-w>h")
+vim.keymap.set("n", "<C-j>", "<C-w>j")
+vim.keymap.set("n", "<C-k>", "<C-w>k")
+vim.keymap.set("n", "<C-l>", "<C-w>l")
+
+-- Resize window with <C-arrows>
+vim.keymap.set("n", "<C-Up>", "<cmd>resize +2<cr>")
+vim.keymap.set("n", "<C-Down>", "<cmd>resize -2<cr>")
+vim.keymap.set("n", "<C-Left>", "<cmd>vertical resize -2<cr>")
+vim.keymap.set("n", "<C-Right>", "<cmd>vertical resize +2<cr>")
+
+vim.keymap.set("n", "<leader>l", "<cmd>Lazy<cr>")
