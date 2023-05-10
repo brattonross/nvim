@@ -40,7 +40,6 @@ require("lazy").setup("plugins", {
 require("brattonross.set")
 require("brattonross.remap")
 require("brattonross.autocommands")
-require("brattonross.lsp")
 
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
