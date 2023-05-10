@@ -51,3 +51,10 @@ vim.opt.listchars:append({
 	tab = "» ",
 })
 vim.opt.list = true
+
+vim.opt.showmode = false
+
+if vim.fn.has("nvim-0.9.0") == 1 then
+	vim.opt.splitkeep = "screen"
+	vim.opt.shortmess:append({ C = true })
+end
