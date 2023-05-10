@@ -1,29 +1,38 @@
 return {
 	{
 		"ThePrimeagen/harpoon",
-		config = function()
-			local mark = require("harpoon.mark")
-			local ui = require("harpoon.ui")
-
-			vim.keymap.set("n", "<leader>a", mark.add_file, {
-				desc = "[a] Add file to Harpoon",
-			})
-			vim.keymap.set("n", "<C-e>", ui.toggle_quick_menu, {
+		keys = {
+			{
+				"<leader>1",
+				"<cmd>lua require('harpoon.ui').nav_file(1)<cr>",
+				desc = "Navigate to Harpoon file [1]",
+			},
+			{
+				"<leader>2",
+				"<cmd>lua require('harpoon.ui').nav_file(2)<cr>",
+				desc = "Navigate to Harpoon file [2]",
+			},
+			{
+				"<leader>3",
+				"<cmd>lua require('harpoon.ui').nav_file(3)<cr>",
+				desc = "Navigate to Harpoon file [3]",
+			},
+			{
+				"<leader>4",
+				"<cmd>lua require('harpoon.ui').nav_file(4)<cr>",
+				desc = "Navigate to Harpoon file [4]",
+			},
+			{
+				"<leader>a",
+				"<cmd>lua require('harpoon.mark').add_file()<cr>",
+				desc = "[A]dd file to Harpoon",
+			},
+			{
+				"<C-e>",
+				"<cmd>lua require('harpoon.ui').toggle_quick_menu()<cr>",
 				desc = "[C-e] Toggle Harpoon quick menu",
-			})
-			vim.keymap.set("n", "<leader>1", function()
-				ui.nav_file(1)
-			end, { desc = "[1] Navigate to Harpoon file 1" })
-			vim.keymap.set("n", "<leader>2", function()
-				ui.nav_file(2)
-			end, { desc = "[2] Navigate to Harpoon file 2" })
-			vim.keymap.set("n", "<leader>3", function()
-				ui.nav_file(3)
-			end, { desc = "[3] Navigate to Harpoon file 3" })
-			vim.keymap.set("n", "<leader>4", function()
-				ui.nav_file(4)
-			end, { desc = "[4] Navigate to Harpoon file 4" })
-		end,
+			},
+		},
 		event = { "BufReadPost", "BufNewFile" },
 	},
 	{
