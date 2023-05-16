@@ -12,8 +12,8 @@ return {
 				sections = {
 					lualine_c = {
 						{
-							"filename",
-							path = 1, -- 1: Relative path
+							-- "filename",
+							-- path = 1, -- 1: Relative path
 						},
 					},
 				},
