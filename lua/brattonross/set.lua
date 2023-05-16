@@ -46,6 +46,7 @@ vim.cmd("highlight WinSeparator guibg=None")
 vim.opt.winbar = "%#lualine_c_normal#%m %f"
 
 vim.g.netrw_banner = 0
+vim.g.netrw_bufsettings = "noma nomod nu nobl nowrap ro"
 
 vim.opt.listchars:append({
 	eol = "↵",
