@@ -131,9 +131,9 @@ return {
 				desc = "[S]earch [C]ommands",
 			},
 			{
-				"<leader>fk",
+				"<leader>sk",
 				"<cmd>Telescope keymaps<cr>",
-				desc = "[F]ind [K]eymaps",
+				desc = "[S]earch [K]eymaps",
 			},
 			{
 				"<leader>u",
@@ -164,6 +164,11 @@ return {
 				"<leader>gS",
 				"<cmd>Telescope git_stash<cr>",
 				desc = "[G]it [S]tash",
+			},
+			{
+				"<leader>sp",
+				"<cmd>Telescope project<cr>",
+				desc = "[S]earch [P]rojects",
 			},
 		},
 		event = "VeryLazy",
