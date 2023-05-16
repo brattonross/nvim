@@ -43,6 +43,8 @@ vim.g.netrw_altv = 1
 vim.opt.laststatus = 3
 vim.cmd("highlight WinSeparator guibg=None")
 
+vim.opt.winbar = "%#lualine_c_normal#%m %f"
+
 vim.g.netrw_banner = 0
 
 vim.opt.listchars:append({
