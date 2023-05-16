@@ -28,3 +28,11 @@ vim.api.nvim_create_autocmd("FileType", {
 	end,
 	group = augroup("filetype_settings"),
 })
+
+-- Prevent auto commenting on new line
+vim.api.nvim_create_autocmd("BufEnter", {
+	callback = function()
+		vim.opt.formatoptions:remove({ "c", "r", "o" })
+	end,
+	group = augroup("comments_on_new_line"),
+})
