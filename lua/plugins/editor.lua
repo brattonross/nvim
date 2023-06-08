@@ -9,7 +9,7 @@ return {
 					enabled = true,
 					auto_trigger = true,
 					keymap = {
-						accept = "<C-a>",
+						accept = "<C-j>",
 					},
 				},
 				filetypes = {
@@ -28,7 +28,14 @@ return {
 	{
 		"folke/todo-comments.nvim",
 		cmd = { "TodoTrouble", "TodoTelescope" },
-		config = true,
+		dependencies = {
+			"nvim-lua/plenary.nvim",
+		},
+		config = function()
+			require("todo-comments").setup({
+				signs = false,
+			})
+		end,
 		keys = {
 			{
 				"]t",
@@ -108,6 +115,7 @@ return {
 					null_ls.builtins.formatting.gofumpt,
 					null_ls.builtins.formatting.goimports,
 					null_ls.builtins.formatting.prettierd,
+					null_ls.builtins.formatting.rustfmt,
 					null_ls.builtins.formatting.stylua,
 				},
 				on_attach = function(client, bufnr)

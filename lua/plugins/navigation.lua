@@ -62,7 +62,7 @@ return {
 
 			require("telescope").setup({
 				defaults = {
-					layout_strategy = "vertical",
+					-- layout_strategy = "vertical",
 					layout_config = {
 						vertical = {
 							width = 0.9,
@@ -134,6 +134,11 @@ return {
 				"<leader>sk",
 				"<cmd>Telescope keymaps<cr>",
 				desc = "[S]earch [K]eymaps",
+			},
+			{
+				"<leader>sr",
+				"<cmd>Telescope resume<cr>",
+				desc = "[S]earch [R]esume",
 			},
 			{
 				"<leader>u",

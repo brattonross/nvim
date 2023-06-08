@@ -20,8 +20,7 @@ vim.keymap.set("n", "Q", "<nop>")
 vim.keymap.set("n", "q:", "<nop>")
 
 -- Keep yanked buffer content when pasting over a highlight
-vim.keymap.set("v", "p", '"_dp')
-vim.keymap.set("v", "P", '"_dP')
+vim.keymap.set("v", "p", '"_dP')
 
 -- Diagnostic keymaps
 vim.keymap.set("n", "[d", vim.diagnostic.goto_prev, { desc = "Go to previous diagnostic message" })

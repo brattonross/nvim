@@ -1,11 +1,48 @@
+local colors = {
+	fg = "#a6adc8",
+	bg = "#313244",
+}
+
 return {
 	{
 		"nvim-lualine/lualine.nvim",
+		enabled = true,
 		config = function()
 			require("lualine").setup({
 				options = {
 					icons_enabled = false,
-					theme = "catppuccin",
+					theme = {
+						normal = {
+							a = { fg = colors.fg, bg = colors.bg },
+							b = { fg = colors.fg, bg = colors.bg },
+							c = { fg = colors.fg, bg = colors.bg },
+						},
+						insert = {
+							a = { fg = colors.fg, bg = colors.bg },
+							b = { fg = colors.fg, bg = colors.bg },
+							c = { fg = colors.fg, bg = colors.bg },
+						},
+						visual = {
+							a = { fg = colors.fg, bg = colors.bg },
+							b = { fg = colors.fg, bg = colors.bg },
+							c = { fg = colors.fg, bg = colors.bg },
+						},
+						replace = {
+							a = { fg = colors.fg, bg = colors.bg },
+							b = { fg = colors.fg, bg = colors.bg },
+							c = { fg = colors.fg, bg = colors.bg },
+						},
+						command = {
+							a = { fg = colors.fg, bg = colors.bg },
+							b = { fg = colors.fg, bg = colors.bg },
+							c = { fg = colors.fg, bg = colors.bg },
+						},
+						inactive = {
+							a = { fg = colors.fg, bg = colors.bg },
+							b = { fg = colors.fg, bg = colors.bg },
+							c = { fg = colors.fg, bg = colors.bg },
+						},
+					},
 					component_separators = "|",
 					section_separators = "",
 				},
